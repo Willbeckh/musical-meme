@@ -14,7 +14,7 @@ def create_app(config_name):
     """method that sets the main application factory"""
     app = Flask(__name__, instance_relative_config=True)
     
-     # app configs
+     # app settings.
     app.config.from_object(config_options[config_name])
         
      # init flask ext
@@ -24,8 +24,9 @@ def create_app(config_name):
 
     
     # app blueprints
-    from .main import main as main_bp
-    app.register_blueprint(main_bp)
-    
+    from app.main.links import main, auth
+    app.register_blueprint(main)
+    app.register_blueprint(auth)
+       
    
     return app
