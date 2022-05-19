@@ -39,10 +39,9 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200))
     body = db.Column(db.String(255))
-    post_pic = db.Column(db.String(50))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    post_comment = db.relationship('Comment', backref='pitch', lazy='dynamic')
+    post_comment = db.relationship('Comment', backref='post', lazy='dynamic')
 
     def __repr__(self):
         return f'<Post: {self.title}>'
