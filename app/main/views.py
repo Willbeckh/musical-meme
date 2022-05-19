@@ -36,9 +36,11 @@ def add_post():
 @main.route('/post/<int:post_id>')
 # @login_required
 def post(post_id):
+    
     post = Post.query.get_or_404(post_id)
     comments = Comment.query.all()
-    return render_template('post.html', title=post.title, post=post,  comments=comments)
+    form = CommentForm()
+    return render_template('post.html', title=post.title, post=post,  comments=comments, form=form)
 
 
 @main.route('/post/<int:post_id>/comment', methods=['GET', 'POST'])
@@ -47,10 +49,11 @@ def comment(post_id):
     """Method to enable a user to comment on a post"""
     form = CommentForm()
     if form.validate_on_submit():
-        comment = Comment(comment_text=form.comment_text.data,
+        comment = Comment(comment=form.comment_text.data,
                           author=current_user, post_id=post_id)
         db.session.add(comment)
         db.session.commit()
+        flash('Your comment has been added!', 'info')
         return redirect(url_for('main.post', post_id=post_id))
     return render_template('comment.html', title="Comment", form=form)
 
