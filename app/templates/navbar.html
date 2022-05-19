@@ -9,15 +9,9 @@
           <a href="/" class="nav-link">Contact</a>
           {% if current_user.is_anonymous %}
           <a
-            href="{{ url_for('auth.login')}}"
-            class="nav-link btn btn-sm btn-outline-success"
-            >Login</a
-          >
-          <a
-            href="{{ url_for('auth.register')}}"
-            class="nav-link btn-sm btn-outline-primary"
-            >Sign Up</a
-          >
+            href="{{
+          url_for('auth.login')}}"
+          ></a>
           {% else %}
           <a
             href="{{ url_for('auth.logout')}}"
