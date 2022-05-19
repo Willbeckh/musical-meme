@@ -25,7 +25,9 @@
       <div class="col mx-auto post-card">
         <div class="card">
           <div class="card-body">
-            <h3 class="card-title">{{ post.title }}</h3>
+            <a href="{{url_for('main.post', post_id=post.id)}}"
+              ><h3 class="card-title">{{ post.title }}</h3></a
+            >
             {{ post.text }}
             <p class="card-text">
               {{ post.author.username }}
