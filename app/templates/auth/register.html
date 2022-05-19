@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+<!-- register form -->
+{% block content %}
+<div class="container">
+  <div class="">
+    <div class="auth__form signup">
+      <h2 class="text-center">Sign Up</h2>
+      <form action="" method="post">
+        {{ form.csrf_token }}
+        <div class="form-group">
+          {{ form.username.label(class='form-label') }} <br />
+          {{ form.username(class='form-control', size=32) }} <br />
+          {% for error in form.username.errors %}
+          <span class="text-danger">[{{error}}]</span>
+          {% endfor %}
+          <!-- errors -->
+        </div>
+        <div class="email">
+          {{ form.email.label(class='form-label')}} <br />
+          {{ form.email(class='form-control', size=32) }}
+          <!-- errors -->
+          {% for error in form.email.errors %}
+          <span class="text-danger">[{{error}}]</span>
+          {% endfor %}
+          <!-- errors -->
+        </div>
+        <div class="password">
+          {{ form.password.label(class='form-label') }} <br />
+          {{ form.password(class='form-control', size=32) }}
+          <!-- errors -->
+          {% for error in form.password.errors %}
+          <span class="text-danger">[{{error}}]</span>
+          {% endfor %}
+        </div>
+        <div class="password">
+          {{form.password_confirm.label(class='form-label') }} <br />
+          {{form.password_confirm(class='form-control', size=32)}}
+          <!-- errors -->
+          {% for error in form.password_confirm.errors %}
+          <span class="text-danger">[{{error}}]</span>
+          {% endfor %}
+          <!-- errors -->
+        </div>
+        <div class="submit_btn mt-2">
+          <button
+            type="submit"
+            class="btn btn-sm btn-outline-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#popup"
+          >
+            Sign Up
+          </button>
+        </div>
+      </form>
+      <p>
+        <span class="text-dark">Already registered?</span>
+        <a href="{{url_for('auth.login')}}" class="text-info">Login</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}
