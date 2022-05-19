@@ -10,3 +10,12 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password')
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
+    
+    
+class RegisterForm(FlaskForm):
+    """Register form."""
+    username = StringField('Username')
+    email = StringField('Email')
+    password = PasswordField('Password')
+    password_confirm = PasswordField('Repeat Password')
+    submit = SubmitField('Register')
