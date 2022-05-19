@@ -2,7 +2,7 @@
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_user, logout_user
 from app.models import User
-from app.auth.forms import LoginForm
+from app.auth.forms import *
 from app.main.links import auth
 from app import db
 
@@ -24,7 +24,7 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         return redirect(next_page) if next_page else redirect(url_for('main.index'))
-    return render_template('authenticate/login.html', title='Sign In', form=form)
+    return render_template('auth/login.html', title='Sign In', form=form)
 
 
 @auth.route('/logout')
@@ -40,5 +40,15 @@ def register():
     '''
     user sign up route method
     '''
-    pass
-
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        # mail_message('Welcome to One time platform.', 'email/welcome_user', user.email, user=user)
+        flash(f'Account for {user.username} successfully registered!', 'success')
+        return redirect(url_for('auth.login'))
+    return render_template('auth/register.html', title='Sign Up', form=form)
