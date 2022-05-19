@@ -3,3 +3,38 @@
   font-weight: bolder;
   text-decoration: wavy;
 }
+/* quote card */
+.quote-card {
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+/* quote card end */
+
+/* posts style start */
+.post-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 8px;
+  padding: 2em;
+  height: 80%;
+  cursor: pointer;
+}
+
+.post-card h3 {
+  font-size: 1.5em;
+  font-weight: bolder;
+}
+
+.body {
+  font-size: 1em;
+  font-weight: 500;
+  color: rgb(37, 37, 37);
+}
+
+.card-footer {
+  padding: 0;
+  border: none;
+}
+/* posts style start end*/
