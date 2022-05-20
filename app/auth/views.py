@@ -17,9 +17,9 @@ def login():
         return redirect(url_for('main.index'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash("Invalid username or password.", 'error')
+            flash("Invalid username or password.", 'danger')
             return redirect(url_for('auth.login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
@@ -35,20 +35,19 @@ def logout():
 
 
 # register route
-# @auth.route('/register', methods=['GET', 'POST'])
-# def register():
-#     '''
-#     user sign up route method
-#     '''
-#     if current_user.is_authenticated:
-#         return redirect(url_for('main.index'))
-#     form = RegisterForm()
-#     if form.validate_on_submit():
-#         user = User(username=form.username.data, email=form.email.data)
-#         user.set_password(form.password.data)
-#         db.session.add(user)
-#         db.session.commit()
-#         # mail_message('Welcome to One time platform.', 'email/welcome_user', user.email, user=user)
-#         flash(f'Account for {user.username} successfully registered!', 'success')
-#         return redirect(url_for('auth.login'))
-#     return render_template('auth/register.html', title='Sign Up', form=form)
+@auth.route('/register', methods=['GET', 'POST'])
+def register():
+    '''
+    user sign up route method
+    '''
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash(f'Account for {user.username} successfully registered!', 'info')
+        return redirect(url_for('auth.login'))
+    return render_template('auth/register.html', title='Sign Up', form=form)

@@ -12,10 +12,7 @@
     <title>Blog</title>
     {% endif %} {% endblock %}
     <!-- title section end -->
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css')}}"
-    />
+
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
@@ -30,7 +27,10 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css')}}"
+    />
     {% block scripts %}
 
     <script
@@ -48,7 +48,7 @@
     {% with messages = get_flashed_messages(with_categories=true) %} {% for
     category, message in messages %} {% if message %}
     <div
-      class="alert alert-primary alert-dismissible text-center fade show m-0"
+      class="alert alert-{{category}} alert-dismissible text-center fade show w-25 mx-auto"
       role="alert"
     >
       {{message}}

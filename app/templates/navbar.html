@@ -1,23 +1,31 @@
 <nav class="navbar navbar-expand navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold fs-4" href="/"> B.</a>
+    <a class="navbar-brand fw-bold text-primary logo" href="/"> B.</a>
     <div>
       <div class="" id="navbarNavAltMArkup">
         <div class="navbar-nav d-flex">
-          <a href="/" class="nav-link">Home</a>
-          <a href="/" class="nav-link">About</a>
-          <a href="/" class="nav-link">Contact</a>
+          <a href="/" class="nav-link text-info">Home</a>
+          <a href="/" class="nav-link text-info">About</a>
+          <a href="/" class="nav-link text-info">Contact</a>
           {% if current_user.is_anonymous %}
-          <a
-            href="{{
-          url_for('auth.login')}}"
-          ></a>
+          <a href="{{ url_for('auth.login')}}" class="btn btn-outline-success btn-sm m-1"
+            >Sign In</a
+          >
+          <a href="{{ url_for('auth.register')}}" class="btn btn-outline-primary btn-sm m-1"
+            >Sign Up</a
+          >
           {% else %}
           <a
             href="{{ url_for('auth.logout')}}"
-            class="nav-link btn btn-sm btn-outline-secondary"
+            class="btn btn-outline-secondary btn-sm text-danger m-1"
             >Logout</a
           >
+          <a
+            href="{{ url_for('main.add_post')}}"
+            class="btn btn-primary btn-sm m-1"
+          >
+            Create post
+          </a>
           {% endif %}
         </div>
       </div>
