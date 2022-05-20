@@ -34,10 +34,6 @@ A simple short blog engine written in Python and Flask as the framework.
 - Git
 - VsCode
 
-## Screenshots
-
-
-
 
 ## Setup
 Setting up the project is easy.
@@ -52,6 +48,11 @@ python3 -m pip install -r requirements.txt
 python3 -m flask run 'or' python3 manage.py server
 # app opens on http://127.0.0.1:5000/
 TIP: remember to export the application variables that enables the application enine to start.
+```
+
+*Running the test suite*
+```py
+python3 -m unittest discover tests -v
 ```
 
 ## Project Status
