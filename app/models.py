@@ -20,7 +20,6 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(120))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     post_id = db.relationship('Post', backref='author', lazy='dynamic')
-    comment_id = db.relationship('Comment', backref='author', lazy='dynamic')
 
     def set_password(self, password):
         """ Method to create a hashed password."""
@@ -51,7 +50,6 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String(200))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
 
     def __repr__(self):
