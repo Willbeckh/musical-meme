@@ -9,13 +9,17 @@
   <div class="pitch__card">
     <div class="col-md-12">
       <h2>{{ post.title }}</h2>
-      <p class="bg-danger tags">{{ post.categories}}</p>
-      <p class="post__author">By: {{ post.author.username}}</p>
+      <p class="post__author">By:{{ post.author.username}}</p>
       <p class="post__text">{{ post.text }}</p>
       <a
         href="{{ url_for('main.comment', post_id=post.id)}}"
         class="btn btn-info btn-sm"
         >Comment</a
+      >
+      <a
+        href="{{ url_for('main.update_post', post_id=post.id)}}"
+        class="btn btn-outline-info btn-sm"
+        >Edit</a
       >
       {% if post.author == current_user %}
       <button
@@ -29,21 +33,32 @@
       {% endif %}
     </div>
   </div>
-  <div class="comments">
-    <div class="col-md-12">
+  <div class="comments p-2">
+    <div class="col">
       {% for comment in comments %} {% if comment.post_id == post.id %}
       <div class="comment__body">
-        <p>{{comment.comment}}</p>
-        <em class="text-muted fs-1"
-          >{{comment.timestamp.strftime('%d/%m/%Y')}}</em
+        <p>
+          {{comment.comment}}<sub class="text-muted fs-1"
+            >{{comment.timestamp.strftime('%d/%m/%Y, %H:%M')}}</sub
+          >
+          {{ comment.comment.id}}
+        </p>
+        {% if post.author == current_user %}
+        <button
+          type="button"
+          class="btn btn-warning btn-sm"
+          data-toggle="modal"
+          data-target="#commentModal"
         >
-        <p class="text-muted author">~{{comment.author.username}}</p>
+          remove
+        </button>
+        {% endif %}
       </div>
       {% endif %} {% endfor %}
     </div>
   </div>
 
-  <!-- Modal -->
+  <!-- delete post Modal -->
   <div
     class="modal fade"
     id="exampleModal"
@@ -78,6 +93,42 @@
       </div>
     </div>
   </div>
-  <!-- MODAL END -->
+  <!-- Delete post end -->
+  <!-- Delete Comment modal -->
+  <div
+    class="modal fade"
+    id="commentModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">Delete this comment.</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <form
+            action="{{ url_for('main.delete_comment', comment_id=post.id) }}"
+            method="POST"
+          >
+            <input class="btn btn-danger" type="submit" value="yes" disabled />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Delete Comment modal -->
 </div>
 {% endblock %}
